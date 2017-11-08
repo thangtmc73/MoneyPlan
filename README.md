@@ -1,7 +1,11 @@
 # MoneyPlan
 Ứng dụng quản lý chi tiêu chuẩn bị cho những mục tiêu cụ thể
 ## Cài đặt
-Cài đặt React Navigation
+### Cài đặt React Navigation
+```bash
+npm install --save react-navigation
+ ```
+### Cài đặt React Native Vector Icons
 ```bash
 npm install --save react-navigation
  ```
