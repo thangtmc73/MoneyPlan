@@ -14,9 +14,11 @@ import {
 
 import {StackNavigator} from 'react-navigation';
 import HomeScreen from "./HomeScreen"
+import DayDetailSaveEditScreen from "./DayDetailSaveEditScreen"
 
 const ScreenStack = StackNavigator({
-    Home: {screen: HomeScreen}
+    Home: {screen: HomeScreen},    
+    DayDetailSaveEdit: {screen: DayDetailSaveEditScreen},                
 });
 
 export default class App extends Component<{}> {

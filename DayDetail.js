@@ -21,7 +21,7 @@ class DayDetail extends Component {
                             <Text style={styles.subtitle}>{this.props.subtitle}</Text>
                         </View>
                     </View>
-                    <Text style={[styles.value, colorStyle]}>{this.props.value} đ</Text>
+                    <Text style={[styles.value, colorStyle]}>{this.props.value > 0 ? this.props.value : -this.props.value} đ</Text>
                 </View>
             </TouchableOpacity>
         );

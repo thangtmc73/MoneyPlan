@@ -46,12 +46,11 @@ class DayStatus extends Component {
 const styles = StyleSheet.create({
     borderLeft: {
         backgroundColor: 'green',
+        borderRadius: 5,
         paddingLeft: 5,
         margin: 4,
     },
     container: {
-        borderWidth: 1,
-        borderRadius: 5,
         height: 'auto',
         borderColor: 'white',
         backgroundColor: 'white',

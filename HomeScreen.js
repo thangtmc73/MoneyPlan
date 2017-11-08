@@ -12,6 +12,8 @@ import {
     FlatList
 } from 'react-native';
 
+import Icon from 'react-native-vector-icons/FontAwesome';
+
 import CurrentMoney from './CurrentMoney'
 import MonthStatus from './MonthStatus'
 import DayStatus from './DayStatus'
@@ -26,8 +28,8 @@ class HomeScreen extends React.Component {
         },
         headerTitleStyle: {alignSelf: 'center'},
         headerTintColor:'white',
-        headerLeft: <TouchableOpacity><View><Image source={require('./menu.png')}/></View></TouchableOpacity>,
-        headerRight: <TouchableOpacity><View><Image source={require('./get-money.png')}/></View></TouchableOpacity>,
+        headerLeft: <TouchableOpacity><Icon name='bars' size={22} color='white'/></TouchableOpacity>,
+        headerRight: <TouchableOpacity><Icon name='bell-o' size={22} color='white'/></TouchableOpacity>,
     };
 
     constructor(props) {
@@ -43,19 +45,28 @@ class HomeScreen extends React.Component {
             {title: 'Lương', subtitle: 'Công ty', value: 100000},
             {title: 'Ăn cơm', subtitle: 'Trưa', value: -15000}];
         return (
-            <ScrollView style={styles.container}>
-                <MonthStatus month={10} income={15000} outcome={30000}/>
-                <DayStatus data={dataTest}/>
-            </ScrollView>
+            <View>
+                <ScrollView style={styles.list}>
+                    <MonthStatus month={10} income={15000} outcome={30000}/>
+                    <DayStatus data={dataTest}/>
+                    <DayStatus data={dataTest}/>
+                </ScrollView>
+                <TouchableOpacity  style={styles.floatingActionButton}>
+                        <Icon name='plus' size={22} color='white'/>                                                                                     
+                </TouchableOpacity>
+            </View>
         );
     }
 }
 
 const styles = StyleSheet.create({
     container: {
-        padding: 0,
         flex: 1,
-        backgroundColor:'#d3d3d3'
+        height: 'auto',
+    },
+    list: {
+        padding: 0,
+        backgroundColor:'#dcdcdc'
     },
     row: {
         flexDirection: 'row',
@@ -69,6 +80,17 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 20
+    },
+    floatingActionButton: {
+        width: 60,
+        height: 60,
+        borderRadius: 30,
+        backgroundColor: '#2db84c',
+        position: 'absolute',
+        justifyContent: 'center',
+        alignSelf: 'center',
+        alignItems: 'center',        
+        bottom: 30,
     },
 
 });

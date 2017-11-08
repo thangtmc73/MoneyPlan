@@ -7,12 +7,15 @@ import {
     View,
 } from 'react-native';
 
+import Icon from 'react-native-vector-icons/FontAwesome';
+
+
 class CurrentMoney extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Image style={styles.image} source={require('./get-money.png')}/>
-                <Text style={styles.text}> {this.props.name}</Text>
+                <Image style={styles.image} source={require('./GetMoney.png')}/>
+                <Text style={styles.text}>{this.props.name}</Text>
             </View>
         );
     }
@@ -22,15 +25,15 @@ const styles = StyleSheet.create({
     container: {
         flexDirection:'row',
         alignSelf: 'center',
+        justifyContent: 'flex-start',
     },
     image:{
-        width:'60',
-        height:'60',
+        alignSelf: 'center',        
     },
     text:{
         alignSelf: 'center',
-        marginLeft:5,
         color:'white',
+        marginLeft:5,
         fontSize: 32,
     }
 });
