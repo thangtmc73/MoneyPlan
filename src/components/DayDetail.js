@@ -1,3 +1,6 @@
+// Component DayDetail thể hiện chi tiết một sự kiện thu chi trong ngày
+// bao gồm tên sự kiện thu chi (thuộc tính title), ghi chu (thuộc tính
+// subtitle), số tiền thu chi (thuộc tính value)
 import React, {Component} from 'react';
 
 import {
@@ -15,7 +18,7 @@ class DayDetail extends Component {
             <TouchableOpacity style={styles.container}>
                 <View style={styles.headerRow}>
                     <View style={styles.detailRowContainer}>
-                        <Image style={styles.icon} source={require('./red.png')}/>
+                        <Image style={styles.icon} source={require('./../../images/red.png')}/>
                         <View style={styles.titleContainer}>
                             <Text style={styles.title}>{this.props.title}</Text>
                             <Text style={styles.subtitle}>{this.props.subtitle}</Text>

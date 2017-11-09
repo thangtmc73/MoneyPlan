@@ -13,8 +13,8 @@ import {
 } from 'react-native';
 
 import {StackNavigator} from 'react-navigation';
-import HomeScreen from "./HomeScreen"
-import DayDetailSaveEditScreen from "./DayDetailSaveEditScreen"
+import HomeScreen from "./src/screens/HomeScreen"
+import DayDetailSaveEditScreen from "./src/screens/DayDetailSaveEditScreen"
 
 const ScreenStack = StackNavigator({
     Home: {screen: HomeScreen},    

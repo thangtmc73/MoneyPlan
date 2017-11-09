@@ -12,10 +12,10 @@ import {
     Picker,
 } from 'react-native';
 
-import CurrentMoney from './CurrentMoney'
-import MonthStatus from './MonthStatus'
-import DayStatus from './DayStatus'
-import HeaderTextButton from './HeaderTextButton'
+import CurrentMoney from './../components/CurrentMoney'
+import MonthStatus from './../components/MonthStatus'
+import DayStatus from './../components/DayStatus'
+import HeaderTextButton from './../components/HeaderTextButton'
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 

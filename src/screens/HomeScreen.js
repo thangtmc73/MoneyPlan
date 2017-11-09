@@ -14,10 +14,10 @@ import {
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-import CurrentMoney from './CurrentMoney'
-import MonthStatus from './MonthStatus'
-import DayStatus from './DayStatus'
-import HeaderIconButton from './HeaderIconButton'
+import CurrentMoney from './../components/CurrentMoney'
+import MonthStatus from './../components/MonthStatus'
+import DayStatus from './../components/DayStatus'
+import HeaderIconButton from './../components/HeaderIconButton'
 
 class HomeScreen extends React.Component {
     static navigationOptions = {

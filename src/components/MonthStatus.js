@@ -1,3 +1,6 @@
+// Component MonthStatus thể hiện trạng thái tổng quan chi tiêu trong tháng
+// của người sử dụng, số tiền thu vào (thuộc tính income), số tiền chi ra (
+// thuộc tính outcome)
 import React, {Component} from 'react';
 
 import {

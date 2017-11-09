@@ -1,3 +1,8 @@
+// Component DayStatus được dùng để thể hiện ngày tháng năm
+// cùng với tổng số tiền thu chi trong ngày đi kèm áp dụng
+// trong màn hình HomeScreen
+// các thuộc tính liên quan sẽ sửa khi xác định được cách
+// sử dụng ngày tháng năm trong csdl
 import React, {Component} from 'react';
 
 import {

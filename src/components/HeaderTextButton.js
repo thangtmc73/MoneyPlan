@@ -1,3 +1,5 @@
+// Component HeaderTextButton thể hiện bút bấm trên phần tiêu đề của các màn hình
+// chỉ chứa text không có icon đi kèm, text được truyền qua thuộc tính name
 import React, {Component} from 'react';
 
 import {

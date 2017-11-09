@@ -1,6 +1,6 @@
 # MoneyPlan
 Ứng dụng quản lý chi tiêu chuẩn bị cho những mục tiêu cụ thể
-## Cài đặt
+## Cài đặt liên quan
 ### Cài đặt React Navigation
 ```bash
 npm install --save react-navigation
@@ -9,6 +9,13 @@ npm install --save react-navigation
 ```bash
 npm install --save react-navigation
  ```
+## Cấu trúc project
+### Components
+Lưu trong thư mục ```/src/components/```, chứa các file liên quan đến component thể hiện lên giao diện của ứng dụng.
+### Imges
+Lưu trong thư mục ```/images/```, chứa các file hình ảnh liên quan đến ứng dụng.
+### Screens
+Lưu trong thư mục ```/src/screens/```, chứa các file .js thể hiện màn hình screen có trong ứng dụng.
 ## Thành viên
 * Thái Quốc Việt - 14521085 (Nhóm trưởng)
 * Nguyễn Lê Quang - 14520740
