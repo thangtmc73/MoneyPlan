@@ -12,10 +12,12 @@ npm install --save react-navigation
 ## Cấu trúc project
 ### Components
 Lưu trong thư mục ```/src/components/```, chứa các file liên quan đến component thể hiện lên giao diện của ứng dụng.
-### Imges
+### Images
 Lưu trong thư mục ```/images/```, chứa các file hình ảnh liên quan đến ứng dụng.
 ### Screens
 Lưu trong thư mục ```/src/screens/```, chứa các file .js thể hiện màn hình screen có trong ứng dụng.
+### Khác
+Những file phát sinh khác trong quá trình phát triển để trong thư mục ```/src/``` để sắp xếp sau.
 ## Thành viên
 * Thái Quốc Việt - 14521085 (Nhóm trưởng)
 * Nguyễn Lê Quang - 14520740
