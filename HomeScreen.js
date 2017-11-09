@@ -17,6 +17,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import CurrentMoney from './CurrentMoney'
 import MonthStatus from './MonthStatus'
 import DayStatus from './DayStatus'
+import HeaderIconButton from './HeaderIconButton'
 
 class HomeScreen extends React.Component {
     static navigationOptions = {
@@ -28,8 +29,12 @@ class HomeScreen extends React.Component {
         },
         headerTitleStyle: {alignSelf: 'center'},
         headerTintColor:'white',
-        headerLeft: <TouchableOpacity><Icon name='bars' size={22} color='white'/></TouchableOpacity>,
-        headerRight: <TouchableOpacity><Icon name='bell-o' size={22} color='white'/></TouchableOpacity>,
+        headerLeft: <HeaderIconButton name='bars' size={22} tintColor='white' onPress={() => {
+
+        }}/>,
+        headerRight: <HeaderIconButton name='bell-o' size={22} tintColor='white' onPress={() => {
+
+        }}/>,
     };
 
     constructor(props) {

@@ -8,11 +8,13 @@ import {
     View,
 } from 'react-native';
 
-class HeaderTextButton extends Component {
+import Icon from 'react-native-vector-icons/FontAwesome';
+
+class HeaderIconButton extends Component {
     render() {
         return (
-            <TouchableOpacity style={styles.container} onPress={this.props.onPress}>
-                <Text style={styles.text}>{this.props.name}</Text>
+            <TouchableOpacity style={styles.container}>
+                <Icon name={this.props.name} size={this.props.size} color={this.props.tintColor}/>
             </TouchableOpacity>
         );
     }
@@ -22,10 +24,6 @@ const styles = StyleSheet.create({
     container: {
         padding: 10,
     },
-    text: {
-        fontSize: 14,
-        color: 'black',
-    }
 });
 
-export default HeaderTextButton;
+export default HeaderIconButton;
