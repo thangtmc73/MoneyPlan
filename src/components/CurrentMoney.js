@@ -26,7 +26,6 @@ class CurrentMoney extends Component {
 const styles = StyleSheet.create({
     container: {
         flexDirection:'row',
-        alignSelf: 'center',
         justifyContent: 'flex-start',
     },
     image:{
@@ -36,7 +35,7 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         color:'white',
         marginLeft:5,
-        fontSize: 32,
+        fontSize: 28,
     }
 });
 

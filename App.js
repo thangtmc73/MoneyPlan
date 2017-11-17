@@ -15,8 +15,10 @@ import {
 import {StackNavigator} from 'react-navigation';
 import HomeScreen from "./src/screens/HomeScreen"
 import DayDetailSaveEditScreen from "./src/screens/DayDetailSaveEditScreen"
+import PlansScreen from "./src/screens/PlansScreen"
 
 const ScreenStack = StackNavigator({
+    Plans: {screen: PlansScreen},
     Home: {screen: HomeScreen},    
     DayDetailSaveEdit: {screen: DayDetailSaveEditScreen},                
 });
