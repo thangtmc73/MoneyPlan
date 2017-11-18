@@ -11,29 +11,31 @@ import {
     View,
 } from 'react-native';
 
+import formatter from './../utils/formatter'
+
 class MonthStatus extends Component {
     render() {
         return (
-            <View style={styles.container}>
-                <TouchableOpacity style={styles.headerRow}>
+            <TouchableOpacity style={styles.container}>
+                <View style={styles.headerRow}>
                     <View style={styles.headerTitle}>
                         <Text style={styles.title}>Tổng quan</Text>
                         <Text style={styles.subTitle}>Chạm để xem báo cáo đầy đủ</Text>
                     </View>
                     <Text style={styles.headerArrow}>></Text>
-                </TouchableOpacity>
+                </View>
                 <View style={styles.mainSeparator}/>
                 <View style={styles.detailRowContainer}>
                     <Text style={styles.detailRowHeader}>Tiền vào</Text>
-                    <Text style={[styles.detailRowValue, {color:'#20b2aa'}]}>{this.props.income} đ</Text>
+                    <Text style={[styles.detailRowValue, {color:'#20b2aa'}]}>{formatter.formatNumberIntoCurrency(this.props.income)} đ</Text>
                 </View>
                 <View style={styles.detailRowContainer}>
                     <Text style={styles.detailRowHeader}>Tiền ra</Text>
-                    <Text style={[styles.detailRowValue, {color:'red'}]}>{this.props.outcome} đ</Text>
+                    <Text style={[styles.detailRowValue, {color:'red'}]}>{formatter.formatNumberIntoCurrency(this.props.outcome)} đ</Text>
                 </View>
                 <View style={styles.calSeparator}/>
-                <Text style={styles.result}>{this.props.income - this.props.outcome} đ</Text>
-            </View>
+                <Text style={styles.result}>{formatter.formatNumberIntoCurrency(this.props.income - this.props.outcome)} đ</Text>
+            </TouchableOpacity>
         );
     }
 }
