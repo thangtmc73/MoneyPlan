@@ -17,25 +17,21 @@ import MonthStatus from './../components/MonthStatus'
 import DayStatus from './../components/DayStatus'
 import HeaderTextButton from './../components/HeaderTextButton'
 
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-
-class DayDetailSaveEditScreen extends React.Component {
+class EditDayDetailScreen extends React.Component {
     static navigationOptions = {
-        title: "Chi Tiết Giao Dịch",
+        title: "Sửa Giao Dịch",
         headerStyle:{
             backgroundColor:'#dcdcdc',
         },
         headerTintColor: 'black',
-        headerRight: <HeaderTextButton name='LƯU'></HeaderTextButton>,
     };
 
     constructor(props) {
         super(props);
         this.states = {}
     }
-
-
 
     render() {
         const {navigate} = this.props.navigation;
@@ -52,24 +48,28 @@ class DayDetailSaveEditScreen extends React.Component {
                     </View>
                     <View style={styles.row}>
                         <View style={styles.left}>
-                            <Icon name='info' size={22} color='black'/>
+                            <Icon name='note' size={22} color='black'/>
                         </View>
                         <TextInput style={[styles.right, {fontSize: 20}]} placeholder='Ghi chú'/>
                     </View>
                     <View style={styles.row}>
                         <View style={styles.left}>
-                            <Icon name='calendar-check-o' size={22} color='black'/>
+                            <Icon name='calendar-range' size={22} color='black'/>
                         </View>
                         <TextInput style={styles.right}/>
                     </View>
                 </View>
+                <TouchableOpacity style={styles.floatingActionButton}>
+                        <Icon name='save-content' size={22} color='white'/>                                                                                     
+                </TouchableOpacity>
             </View>
         );
     }
 }
 
 const styles = StyleSheet.create({
-    container: {       
+    container: {
+        flex: 1,        
     },
     group: {
         margin:4,        
@@ -97,9 +97,19 @@ const styles = StyleSheet.create({
     },
     right: {
         flex: 7,
-    }
-
+    },
+    floatingActionButton: {
+        width: 60,
+        height: 60,
+        borderRadius: 30,
+        backgroundColor: '#2db84c',
+        position: 'absolute',
+        justifyContent: 'center',
+        alignItems: 'center',
+        right: 30,      
+        bottom: 30,
+    },
 });
 
-export default DayDetailSaveEditScreen;
+export default EditDayDetailScreen;
 

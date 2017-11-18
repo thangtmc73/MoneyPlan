@@ -22,7 +22,7 @@ import HeaderIconButton from './../components/HeaderIconButton'
 class HomeScreen extends React.Component {
     static navigationOptions = {
         headerTitle: (
-            <CurrentMoney name='1.505.500'/>
+            <CurrentMoney name='1.505.500' color='white'/>
         ),
         headerStyle:{
             backgroundColor:'#2db84c',
@@ -42,10 +42,9 @@ class HomeScreen extends React.Component {
         this.states = {}
     }
 
-
-
     render() {
         const {navigate} = this.props.navigation;
+        console.log({navigate});
         dataTest = [{title: 'Di chuyển', subtitle: 'Xe buýt', value:-2000},
             {title: 'Lương', subtitle: 'Công ty', value: 100000},
             {title: 'Ăn cơm', subtitle: 'Trưa', value: -15000}];
@@ -54,9 +53,8 @@ class HomeScreen extends React.Component {
                 <ScrollView style={styles.list}>
                     <MonthStatus month={10} income={15000} outcome={30000}/>
                     <DayStatus data={dataTest}/>
-                    <DayStatus data={dataTest}/>
                 </ScrollView>
-                <TouchableOpacity  style={styles.floatingActionButton}>
+                <TouchableOpacity style={styles.floatingActionButton}>
                         <Icon name='plus' size={22} color='white'/>                                                                                     
                 </TouchableOpacity>
             </View>
