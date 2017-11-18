@@ -4,6 +4,7 @@
 import React, {Component} from 'react';
 
 import {
+    Alert,
     StyleSheet,
     Text,
     Image,
@@ -14,6 +15,7 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome';
 import ProgressBar from './ProgressBar'
 import formatter from './../utils/formatter'
+
 class PlanInfo extends Component {
     render() {
         let today = new Date();
@@ -57,8 +59,22 @@ class PlanInfo extends Component {
                 </View>
                 <View style={styles.mainSeparator}/>
                 <View style={[styles.detailRowContainer, {justifyContent: 'flex-end', marginBottom: 0}]}>
-                    <TouchableOpacity style={{padding: 10}}><Icon name='check-circle-o' size={24} color={colorDone}/></TouchableOpacity>
-                    <TouchableOpacity style={{padding: 10}}><Icon name='trash-o' size={24} color='gray'/></TouchableOpacity>
+                    <TouchableOpacity style={{padding: 10}}  onPress={() => {
+                        Alert.alert(null,
+                                'Đánh dấu hoàn thành kế hoạch sẽ cập nhật lại số tiền hiện tại của bạn và xoá kế hoạch ra khỏi danh sách. Bạn có muốn đánh dấu hoàn thành không?',
+                                [{text: 'Không', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                                {text: 'Có', onPress: () => console.log('OK Pressed')}, ] )
+                        }}>
+                        <Icon name='check-circle-o' size={24} color={colorDone}/>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={{padding: 10}}  onPress={() => {
+                        Alert.alert(null,
+                                'Kế hoạch sẽ bị xoá khỏi danh sách kế hoạch. Bạn có muốn xoá kế hoạch không?',
+                                [{text: 'Không', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                                {text: 'Có', onPress: () => console.log('OK Pressed')}, ] )
+                        }}>
+                        <Icon name='trash-o' size={24} color='gray'/>
+                    </TouchableOpacity>
                 </View>
             </View>
         );
@@ -89,20 +105,20 @@ const styles = StyleSheet.create({
     },
     detailRowHeader:{
         color:'black',
-        fontSize:16,
+        fontSize:14,
         alignSelf: 'center',        
     },
     detailRowValue:{
-        fontSize:18,
+        fontSize:16,
         alignSelf: 'center',
     },
     title:{
         color:'black',
-        fontSize: 24,
+        fontSize: 22,
     },
     subtitle:{
         color:'gray',
-        fontSize: 22,
+        fontSize: 18,
     },
     red: {
         backgroundColor: 'red',

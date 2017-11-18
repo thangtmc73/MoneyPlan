@@ -4,7 +4,7 @@
  * @flow
  */
 
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
     Platform,
     StyleSheet,
@@ -12,21 +12,42 @@ import {
     View
 } from 'react-native';
 
-import {StackNavigator} from 'react-navigation';
+import { StackNavigator } from 'react-navigation';
 import HomeScreen from "./src/screens/HomeScreen"
-import DayDetailSaveEditScreen from "./src/screens/DayDetailSaveEditScreen"
+import EditDayDetailScreen from "./src/screens/EditDayDetailScreen"
+import AddDayDetailScreen from "./src/screens/AddDayDetailScreen"
 import PlansScreen from "./src/screens/PlansScreen"
+import DayDetailScreen from "./src/screens/DayDetailScreen"
+
+const PlansContent = StackNavigator({
+    PlansList: {
+        screen: PlansScreen,
+    },
+});
 
 const ScreenStack = StackNavigator({
-    Plans: {screen: PlansScreen},
-    Home: {screen: HomeScreen},    
-    DayDetailSaveEdit: {screen: DayDetailSaveEditScreen},                
+    AddDayDetail : { screen: AddDayDetailScreen },        
+    DayDetail: { screen: DayDetailScreen },        
+    Home: { screen: HomeScreen },            
+    EditDayDetail : { screen: EditDayDetailScreen },    
+    Home: { screen: HomeScreen },        
+    Plans: {
+        screen: PlansContent,
+        navigationOptions : {
+            headerTitle: (
+                <Text style={{fontSize: 24, color: 'white', alignSelf: 'center'}}>Kế hoạch</Text>
+            ),
+            headerStyle: {
+                backgroundColor: '#2db84c',
+            },
+        },
+    },
 });
 
 export default class App extends Component<{}> {
     render() {
         return (
-            <ScreenStack/>
+            <ScreenStack />
         );
     }
 }

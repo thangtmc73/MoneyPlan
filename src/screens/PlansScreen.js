@@ -14,31 +14,25 @@ import {
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 import PlanInfo from './../components/PlanInfo'
-import CurrentMoney from './../components/CurrentMoney'
 import HeaderIconButton from './../components/HeaderIconButton'
+import CurrentMoney from './../components/CurrentMoney'
+import formatter from './../utils/formatter'
 
 class PlansScreens extends React.Component {
     static navigationOptions = {
         headerTitle: (
-            <View style={{alignSelf:'center'}}>
-                <Text style={{fontSize:28, color:'white'}}>Kế hoạch</Text>
-                <Text style={{fontSize:28, color:'white'}}>1.505.500</Text>
-            </View>
+            <CurrentMoney name={formatter.formatNumberIntoCurrency(1555000)} color='black'/>
         ),
-        headerTitleStyle: {alignSelf: 'center', flex: 1},        
         headerStyle:{
-            backgroundColor:'#2db84c',
+            backgroundColor:'white',
         },
+        headerTitleStyle: {alignSelf: 'center'},
         headerTintColor:'white',
     };
-
     constructor(props) {
         super(props);
         this.states = {}
     }
-
-
-
     render() {
         return (
             <View style={styles.container}>
