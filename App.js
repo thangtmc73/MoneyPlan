@@ -15,11 +15,15 @@ import {
 import {StackNavigator} from 'react-navigation';
 import HomeScreen from "./src/screens/HomeScreen"
 import DayDetailSaveEditScreen from "./src/screens/DayDetailSaveEditScreen"
+import ThemKeHoach from "./src/screens/ThemKeHoach"
 
 const ScreenStack = StackNavigator({
+    ThemKeHoach: {screen: ThemKeHoach},
     Home: {screen: HomeScreen},    
-    DayDetailSaveEdit: {screen: DayDetailSaveEditScreen},                
+    DayDetailSaveEdit: {screen: DayDetailSaveEditScreen}, 
+               
 });
+
 
 export default class App extends Component<{}> {
     render() {
