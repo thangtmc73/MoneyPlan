@@ -14,10 +14,16 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 class CurrentMoney extends Component {
     render() {
+        let defaultColor = (this.props.color === undefined);
+        let textColor = 'white';
+        if (!defaultColor)
+        {
+            textColor = this.props.color;
+        }
         return (
             <View style={styles.container}>
                 <Image style={styles.image} source={require('./../../images/GetMoney.png')}/>
-                <Text style={styles.text}>{this.props.name}</Text>
+                <Text style={[styles.text, {color:textColor}]}>{this.props.name} đ</Text>
             </View>
         );
     }
@@ -26,17 +32,19 @@ class CurrentMoney extends Component {
 const styles = StyleSheet.create({
     container: {
         flexDirection:'row',
-        alignSelf: 'center',
         justifyContent: 'flex-start',
+        alignSelf: 'center',
     },
     image:{
         alignSelf: 'center',        
     },
     text:{
         alignSelf: 'center',
-        color:'white',
         marginLeft:5,
-        fontSize: 32,
+        fontSize: 22,
+    },
+    white: {
+        color:'white'
     }
 });
 

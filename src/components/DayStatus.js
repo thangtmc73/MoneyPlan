@@ -14,6 +14,8 @@ import {
 } from 'react-native';
 
 import DayDetail from './DayDetail'
+import formatter from './../utils/formatter'
+import { StackNavigator } from 'react-navigation';
 
 class DayStatus extends Component {
     render() {
@@ -34,7 +36,7 @@ class DayStatus extends Component {
                                 <Text style={styles.month}>Tháng 11 2016</Text>
                             </View>
                         </View>
-                        <Text style={styles.result}>{total} đ</Text>
+                        <Text style={styles.result}>{formatter.formatNumberIntoCurrency(total)} đ</Text>
                     </View>
                     <View style={styles.mainSeparator}/>
                     <View>

@@ -11,11 +11,16 @@ import {
     View,
 } from 'react-native';
 
+import formatter from './../utils/formatter'
+
 class DayDetail extends Component {
     render() {
         let colorStyle = this.props.value > 0 ? styles.blue : styles.red;
+        let {params} = this.props;
         return (
-            <TouchableOpacity style={styles.container}>
+            <TouchableOpacity style={styles.container} onPress={() => {
+                // navigate('DayDetail', { title: params.title, subtitle: params.subtitle, value: params.value });
+            }}>
                 <View style={styles.headerRow}>
                     <View style={styles.detailRowContainer}>
                         <Image style={styles.icon} source={require('./../../images/red.png')}/>
@@ -24,7 +29,7 @@ class DayDetail extends Component {
                             <Text style={styles.subtitle}>{this.props.subtitle}</Text>
                         </View>
                     </View>
-                    <Text style={[styles.value, colorStyle]}>{this.props.value > 0 ? this.props.value : -this.props.value} đ</Text>
+                    <Text style={[styles.value, colorStyle]}>{formatter.formatNumberIntoCurrency(this.props.value > 0 ? this.props.value : -this.props.value)} đ</Text>
                 </View>
             </TouchableOpacity>
         );
