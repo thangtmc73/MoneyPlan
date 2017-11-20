@@ -26,11 +26,6 @@ const PlansContent = StackNavigator({
 });
 
 const ScreenStack = StackNavigator({
-    AddDayDetail : { screen: AddDayDetailScreen },        
-    DayDetail: { screen: DayDetailScreen },        
-    Home: { screen: HomeScreen },            
-    EditDayDetail : { screen: EditDayDetailScreen },    
-    Home: { screen: HomeScreen },        
     Plans: {
         screen: PlansContent,
         navigationOptions : {
@@ -42,6 +37,14 @@ const ScreenStack = StackNavigator({
             },
         },
     },
+    DayDetail: { screen: DayDetailScreen },                    
+    Home: { screen: HomeScreen },           
+    AddDayDetail : { screen: AddDayDetailScreen },            
+    AddDayDetail : { screen: AddDayDetailScreen },        
+    Home: { screen: HomeScreen },            
+    EditDayDetail : { screen: EditDayDetailScreen },    
+    Home: { screen: HomeScreen },        
+
 });
 
 export default class App extends Component<{}> {

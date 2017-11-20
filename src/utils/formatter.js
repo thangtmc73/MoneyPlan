@@ -6,3 +6,8 @@ exports.formatNumberIntoCurrency = function(number, places, thousand, decimal) {
 	    j = (j = i.length) > 3 ? j % 3 : 0;
 	return negative + (j ? i.substr(0, j) + thousand : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + thousand);
 }
+
+exports.formatCurrencyIntoNumber = function(s) {
+	let number = s.split(',').join('');
+	return Number(number);
+}

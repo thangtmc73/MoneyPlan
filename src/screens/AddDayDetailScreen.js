@@ -18,8 +18,10 @@ import DayStatus from './../components/DayStatus'
 import HeaderTextButton from './../components/HeaderTextButton'
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import Calendar from 'react-native-calendar-datepicker';
+import DatePicker from 'react-native-datepicker'
 import Moment from 'moment';
+import formatter from './../utils/formatter'
+
 
 class AddDayDetailScreen extends React.Component {
     static navigationOptions = {
@@ -30,9 +32,15 @@ class AddDayDetailScreen extends React.Component {
         headerTintColor: 'black',
     };
 
+    amountChanged(e) {
+        let value = formatter.formatCurrencyIntoNumber(e);
+        this.setState({amount: value});
+    }
+
     constructor(props) {
         super(props);
-        this.state = {date: Moment()};
+        this.state = { date: '20/11/2017', amount: 0 };
+        this.amountChanged = this.amountChanged.bind(this);
     }
 
     render() {
@@ -42,7 +50,8 @@ class AddDayDetailScreen extends React.Component {
                 <View style={styles.group}>
                     <View style={styles.row}>
                         <View style={styles.left} />
-                        <TextInput autoFocus={true} keyboardType='numeric' style={[styles.right, { fontSize: 36 }]} />
+                        <TextInput autoFocus={true} keyboardType='numeric' style={[{ fontSize: 36, flex: 6 }]} onChangeText={this.amountChanged} value={formatter.formatNumberIntoCurrency(this.state.amount)} />
+                        <Text style={{flex: 1, fontSize: 36, color: 'black'}}>đ</Text>
                     </View>
                     <View style={styles.row}>
                         <Image style={styles.left} />
@@ -58,16 +67,28 @@ class AddDayDetailScreen extends React.Component {
                         <View style={styles.left}>
                             <Icon name='calendar-range' size={22} color='black' />
                         </View>
-                        <Calendar
-                            onChange={(date) => this.setState({ date })}
-                            selected={this.state.date}
-                            // We use Moment.js to give the minimum and maximum dates.
-                            minDate={Moment().startOf('day')}
-                            maxDate={Moment().add(10, 'years').startOf('day')}/>                    
-                        </View>
+                        <DatePicker
+                            style={styles.right}
+                            date={this.state.date}
+                            mode="date"
+                            placeholder="select date"
+                            format="DD/MM/YYYY"
+                            minDate="01/01/1990"
+                            maxDate="31/12/2099"
+                            confirmBtnText="Xác nhận"
+                            cancelBtnText="Huỷ"
+                            showIcon={false}
+                            customStyles={{
+                                dateText:{
+                                    fontSize: 24,
+                                }
+                            }}
+                            onDateChange={(date) => { this.setState({ date: date }) }}
+                        />
+                    </View>
                 </View>
                 <TouchableOpacity style={styles.floatingActionButton}>
-                    <Icon name='save-content' size={22} color='white' />
+                    <Icon name='content-save' size={22} color='white' />
                 </TouchableOpacity>
             </View>
         );
