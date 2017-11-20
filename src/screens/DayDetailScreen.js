@@ -51,30 +51,30 @@ class DayDetailScreen extends React.Component {
 
     render() {
         const { navigate } = this.props.navigation;
-        const { params } = this.props.navigation.state;
+        const { params } = {title: 'Di chuyển', value: 36000, subtitle: 'Xe buýt'};
         let colorStyle = 36000 > 0 ? styles.blue : styles.red;
         return (
             <View style={styles.container}>
                 <View style={styles.group}>
                     <View style={styles.row}>
                         <View style={styles.left} />
-                        <Text style={[styles.right, { fontSize: 36, color: 'black'  }]}>{params.title}</Text>
+                        <Text style={[styles.right, { fontSize: 36, color: 'black'  }]}>Di chuyển</Text>
                     </View>
                     <View style={styles.row}>
                         <View style={styles.left} />
-                        <Text style={[styles.right, { fontSize: 36 }, colorStyle]}>{formatter.formatNumberIntoCurrency(params.value > 0 ? params.value : -params.value)} đ</Text>
+                        <Text style={[styles.right, { fontSize: 36 }, colorStyle]}>{formatter.formatNumberIntoCurrency(36000 > 0 ? 36000 : -36000)} đ</Text>
                     </View>
                     <View style={styles.row}>
                         <View style={styles.left}>
                             <Icon name='note' size={22} color='black' />
                         </View>
-                        <Text style={[styles.right, { fontSize: 20, color: 'black' }]}>{params.subtitle}</Text>
+                        <Text style={[styles.right, { fontSize: 20, color: 'black' }]}>Xe buýt</Text>
                     </View>
                     <View style={styles.row}>
                         <View style={styles.left}>
                             <Icon name='calendar-range' size={22} color='black' />
                         </View>
-                        <TextInput style={styles.right} />
+                        <Text style={[styles.right, {fontSize:20}]}>29/12/2016</Text>
                     </View>
                 </View>
             </View>
