@@ -4,11 +4,15 @@
 ### Cài đặt React Navigation
 ```bash
 npm install --save react-navigation
- ```
+```
 ### Cài đặt React Native Vector Icons
 ```bash
 npm install --save react-navigation
- ```
+```
+ ### Cài đặt React Native Vector Icons
+ ```bash
+npm install react-native-datepicker --save
+```
 ## Cấu trúc project
 ### Components
 Lưu trong thư mục ```/src/components/```, chứa các file liên quan đến component thể hiện lên giao diện của ứng dụng.

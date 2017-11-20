@@ -36,11 +36,6 @@ const PlansContent = StackNavigator({
 });
 
 const ScreenStack = StackNavigator({
-    AddDayDetail : { screen: AddDayDetailScreen },        
-    DayDetail: { screen: DayDetailScreen },        
-    Home: { screen: HomeScreen },            
-    EditDayDetail : { screen: EditDayDetailScreen },    
-    Home: { screen: HomeScreen },        
     Plans: {
         screen: PlansContent,
         navigationOptions : {
@@ -52,7 +47,18 @@ const ScreenStack = StackNavigator({
             },
         },
     },
+<<<<<<< HEAD
 >>>>>>> 4d994c8a07dc86abf9a3c75b3c05b30d31b59c2e
+=======
+    DayDetail: { screen: DayDetailScreen },                    
+    Home: { screen: HomeScreen },           
+    AddDayDetail : { screen: AddDayDetailScreen },            
+    AddDayDetail : { screen: AddDayDetailScreen },        
+    Home: { screen: HomeScreen },            
+    EditDayDetail : { screen: EditDayDetailScreen },    
+    Home: { screen: HomeScreen },        
+
+>>>>>>> 4608037755f48765f0934de2a966fab4cdf3b2d4
 });
 
 
