@@ -12,22 +12,16 @@ import {
     View
 } from 'react-native';
 
-import { StackNavigator } from 'react-navigation';
+import { StackNavigator, TabNavigator  } from 'react-navigation';
 import HomeScreen from "./src/screens/HomeScreen"
-<<<<<<< HEAD
-import DayDetailSaveEditScreen from "./src/screens/DayDetailSaveEditScreen"
-import ThemKeHoach from "./src/screens/ThemKeHoach"
-
-const ScreenStack = StackNavigator({
-    ThemKeHoach: {screen: ThemKeHoach},
-    Home: {screen: HomeScreen},    
-    DayDetailSaveEdit: {screen: DayDetailSaveEditScreen}, 
-               
-=======
 import EditDayDetailScreen from "./src/screens/EditDayDetailScreen"
 import AddDayDetailScreen from "./src/screens/AddDayDetailScreen"
 import PlansScreen from "./src/screens/PlansScreen"
 import DayDetailScreen from "./src/screens/DayDetailScreen"
+import CurrentMoney from "./src/components/CurrentMoney"
+import HeaderIconButton from "./src/components/HeaderIconButton"
+import MonthContainer from "./src/screens/MonthContainer"
+import NotificationScreen from "./src/screens/NotificationScreen"
 
 const PlansContent = StackNavigator({
     PlansList: {
@@ -35,8 +29,9 @@ const PlansContent = StackNavigator({
     },
 });
 
-const ScreenStack = StackNavigator({
-    Home: {
+const ScreenStack = StackNavigator(
+    {        
+        Home: {
             screen: HomeScreen,
         },
         Plans: {
@@ -70,14 +65,13 @@ const ScreenStack = StackNavigator({
     },
     {
         initialRouteName: "Home",
-    }      
-});
-
+    }
+);
 
 export default class App extends Component<{}> {
     render() {
         return (
-            <ScreenStack />
+            <ScreenStack/>
         );
     }
 }
@@ -85,8 +79,35 @@ export default class App extends Component<{}> {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#F5FCFF',
+        height: 'auto',
     },
+    list: {
+        padding: 0,
+        backgroundColor:'#dcdcdc'
+    },
+    row: {
+        flexDirection: 'row',
+        height: 100
+    },
+    headerButton: {
+        padding: 4,
+    },
+    image: {
+        height: 100
+    },
+    title: {
+        fontSize: 20
+    },
+    floatingActionButton: {
+        width: 60,
+        height: 60,
+        borderRadius: 30,
+        backgroundColor: '#2db84c',
+        position: 'absolute',
+        justifyContent: 'center',
+        alignSelf: 'center',
+        alignItems: 'center',        
+        bottom: 30,
+    },
+
 });
