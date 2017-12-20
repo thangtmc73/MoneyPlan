@@ -9,8 +9,8 @@ npm install --save react-navigation
 ```bash
 npm install --save react-navigation
 ```
- ### Cài đặt React Native Vector Icons
- ```bash
+### Cài đặt React Native Datepicker
+```bash
 npm install react-native-datepicker --save
 ```
 ## Cấu trúc project
