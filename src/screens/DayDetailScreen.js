@@ -30,7 +30,9 @@ class DayDetailScreen extends React.Component {
         },
         headerTintColor: 'black',
         headerRight: <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-            <TouchableOpacity style={{ width: 40 }}>
+            <TouchableOpacity style={{ width: 40 }} onPress={() => {
+
+            }}>
                 <Icon name='pencil' size={28} color='gray' />
             </TouchableOpacity>
             <TouchableOpacity style={{ width: 40 }} onPress={() => {
@@ -51,30 +53,32 @@ class DayDetailScreen extends React.Component {
 
     render() {
         const { navigate } = this.props.navigation;
-        const { params } = {title: 'Di chuyển', value: 36000, subtitle: 'Xe buýt'};
-        let colorStyle = 36000 > 0 ? styles.blue : styles.red;
+        const { params } = { title: 'Di chuyển', value: 36000, subtitle: 'Xe buýt' };
+        let colorStyle = 10000 > 0 ? styles.blue : styles.red;
         return (
             <View style={styles.container}>
                 <View style={styles.group}>
                     <View style={styles.row}>
-                        <View style={styles.left} />
-                        <Text style={[styles.right, { fontSize: 36, color: 'black'  }]}>Di chuyển</Text>
+                        <View style={styles.left}>
+                            <Image style={{ width: 40, height: 40 }} source={require('./../../images/an_uong.png')} />
+                        </View>
+                        <Text style={[styles.right, { fontSize: 36, color: 'black', padding: 4 }]}>Ăn uống</Text>
                     </View>
                     <View style={styles.row}>
                         <View style={styles.left} />
-                        <Text style={[styles.right, { fontSize: 36 }, colorStyle]}>{formatter.formatNumberIntoCurrency(36000 > 0 ? 36000 : -36000)} đ</Text>
+                        <Text style={[styles.right, { fontSize: 36 }, colorStyle]}>{formatter.formatNumberIntoCurrency(10000 > 0 ? 10000 : -10000)} đ</Text>
                     </View>
                     <View style={styles.row}>
                         <View style={styles.left}>
                             <Icon name='note' size={22} color='black' />
                         </View>
-                        <Text style={[styles.right, { fontSize: 20, color: 'black' }]}>Xe buýt</Text>
+                        <Text style={[styles.right, { fontSize: 20, color: 'black' }]}>Bánh mì</Text>
                     </View>
                     <View style={styles.row}>
                         <View style={styles.left}>
                             <Icon name='calendar-range' size={22} color='black' />
                         </View>
-                        <Text style={[styles.right, {fontSize:20}]}>29/12/2016</Text>
+                        <Text style={[styles.right, { fontSize: 20 }]}>29/12/2016</Text>
                     </View>
                 </View>
             </View>

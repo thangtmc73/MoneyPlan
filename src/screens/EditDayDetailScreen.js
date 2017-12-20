@@ -49,13 +49,15 @@ class EditDayDetailScreen extends React.Component {
                 <View style={styles.group}>
                     <View style={styles.row}>
                         <View style={styles.left} />
-                        <TextInput autoFocus={true} keyboardType='numeric' style={[{ fontSize: 36, flex: 6 }]} onChangeText={this.amountChanged} value={formatter.formatNumberIntoCurrency(this.state.amount)} />
-                        <Text style={{flex: 1, fontSize: 36, color: 'black'}}>đ</Text>
+                        <TextInput autoFocus={true} keyboardType='numeric' style={[{ fontSize: 36, flex: 6 }]} onChangeText={this.amountChanged} value={this.state.amount > 0 ? formatter.formatNumberIntoCurrency(this.state.amount) : ''} />
+                        <Text style={{ flex: 1, fontSize: 36, color: 'black' }}>đ</Text>
 
                     </View>
                     <View style={styles.row}>
-                        <Image style={styles.left} />
-                        <Picker style={styles.right} />
+                        <View style={styles.left}>
+                            <Image style={{ width: 40, height: 40 }} source={require('./../../images/an_uong.png')} />
+                        </View>
+                        <Text style={[styles.right, { fontSize: 32, color: 'black', padding: 4 }]}>Ăn uống</Text>
                     </View>
                     <View style={styles.row}>
                         <View style={styles.left}>
@@ -79,7 +81,7 @@ class EditDayDetailScreen extends React.Component {
                             cancelBtnText="Huỷ"
                             showIcon={false}
                             customStyles={{
-                                dateText:{
+                                dateText: {
                                     fontSize: 24,
                                 }
                             }}

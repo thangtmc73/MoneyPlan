@@ -39,7 +39,9 @@ class AddDayDetailScreen extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = { date: '20/11/2017', amount: 0 };
+        let today = new Date();
+        let date = today.getDate().toString() + "/" + (today.getMonth() + 1).toString() + "/" + today.getFullYear().toString();
+        this.state = { date: date, amount: 0 };
         this.amountChanged = this.amountChanged.bind(this);
     }
 
@@ -50,12 +52,14 @@ class AddDayDetailScreen extends React.Component {
                 <View style={styles.group}>
                     <View style={styles.row}>
                         <View style={styles.left} />
-                        <TextInput autoFocus={true} keyboardType='numeric' style={[{ fontSize: 36, flex: 6 }]} onChangeText={this.amountChanged} value={formatter.formatNumberIntoCurrency(this.state.amount)} />
+                        <TextInput autoFocus={true} keyboardType='numeric' style={[{ fontSize: 36, flex: 6 }]} onChangeText={this.amountChanged} value={this.state.amount > 0 ? formatter.formatNumberIntoCurrency(this.state.amount) : ''} />
                         <Text style={{flex: 1, fontSize: 36, color: 'black'}}>đ</Text>
                     </View>
                     <View style={styles.row}>
-                        <Image style={styles.left} />
-                        <Picker style={styles.right} />
+                        <View style={styles.left}>
+                            <Image style={{width: 40, height: 40}} source={require('./../../images/an_uong.png')}/>
+                        </View>
+                        <Text style={[styles.right, {fontSize: 32, color: 'black', padding: 4}]}>Ăn uống</Text>
                     </View>
                     <View style={styles.row}>
                         <View style={styles.left}>
@@ -87,7 +91,9 @@ class AddDayDetailScreen extends React.Component {
                         />
                     </View>
                 </View>
-                <TouchableOpacity style={styles.floatingActionButton}>
+                <TouchableOpacity style={styles.floatingActionButton} onPress={() => {
+                    navigate('DayDetail')
+                }}>
                     <Icon name='content-save' size={22} color='white' />
                 </TouchableOpacity>
             </View>
