@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
+import formatter from './../utils/formatter'
 
 class CurrentMoney extends Component {
     render() {
@@ -23,7 +24,7 @@ class CurrentMoney extends Component {
         return (
             <View style={styles.container}>
                 <Image style={styles.image} source={require('./../../images/GetMoney.png')}/>
-                <Text style={[styles.text, {color:textColor}]}>{this.props.name} đ</Text>
+                <Text style={[styles.text, {color:textColor}]}>{formatter.formatNumberIntoCurrency(this.props.value)} đ</Text>
             </View>
         );
     }
@@ -39,6 +40,8 @@ const styles = StyleSheet.create({
         alignSelf: 'center',        
     },
     text:{
+        fontFamily: "Roboto-Regular",
+        textAlign:'center',
         alignSelf: 'center',
         marginLeft:5,
         fontSize: 22,

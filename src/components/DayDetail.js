@@ -17,10 +17,10 @@ class DayDetail extends Component {
     render() {
         let colorStyle = this.props.value > 0 ? styles.blue : styles.red;
         let {params} = this.props;
+        const navigation = this.props.onPress;
         return (
-            <TouchableOpacity style={styles.container} onPress={() => {
-                // navigate('DayDetail', { title: params.title, subtitle: params.subtitle, value: params.value });
-            }}>
+            
+            <TouchableOpacity style={styles.container}>
                 <View style={styles.headerRow}>
                     <View style={styles.detailRowContainer}>
                         <Image style={styles.icon} source={require('./../../images/red.png')}/>

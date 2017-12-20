@@ -17,8 +17,8 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 class HeaderIconButton extends Component {
     render() {
         return (
-            <TouchableOpacity style={styles.container}>
-                <Icon name={this.props.name} size={this.props.size} color={this.props.tintColor}/>
+            <TouchableOpacity style={styles.container} onPress={this.props.onPress}>
+                <Icon name={this.props.icon} size={this.props.size} color={this.props.tintColor}/>
             </TouchableOpacity>
         );
     }

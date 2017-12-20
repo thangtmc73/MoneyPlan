@@ -24,7 +24,7 @@ class DayStatus extends Component {
         const total = data.reduce((temp, item, index) => {
             return (temp + item.value);
         }, 0);
-        console.log(total);
+        const navigation = this.props.navigation;
         return (
             <View style={styles.borderLeft}>
                 <View style={styles.container}>
