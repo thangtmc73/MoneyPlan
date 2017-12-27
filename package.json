@@ -13,7 +13,8 @@
 		"react-native-dialog-component": "^0.2.17",
 		"react-native-popup-dialog": "^0.9.39",
 		"react-native-vector-icons": "^4.4.2",
-		"react-navigation": "^1.0.0-beta.19"
+		"react-navigation": "^1.0.0-beta.19",
+		"realm": "^2.1.1"
 	},
 	"devDependencies": {
 		"babel-jest": "21.2.0",
@@ -25,6 +26,8 @@
 		"preset": "react-native"
 	},
 	"rnpm": {
-   		"assets": ["./fonts"]
+		"assets": [
+			"./fonts"
+		]
 	}
 }
