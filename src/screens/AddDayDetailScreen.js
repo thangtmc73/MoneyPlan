@@ -21,7 +21,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import DatePicker from 'react-native-datepicker'
 import Moment from 'moment';
 import formatter from './../utils/formatter'
-
+import categories from './../model/Categories'
 
 class AddDayDetailScreen extends React.Component {
     static navigationOptions = {
@@ -36,31 +36,39 @@ class AddDayDetailScreen extends React.Component {
         let value = formatter.formatCurrencyIntoNumber(e);
         this.setState({amount: value});
     }
+    
+    getReturnedData(id)
+    {
+        this.setState({category_id: id, type_id: categories[id].type_id});
+    }
 
     constructor(props) {
         super(props);
         let today = new Date();
         let date = today.getDate().toString() + "/" + (today.getMonth() + 1).toString() + "/" + today.getFullYear().toString();
-        this.state = { date: date, amount: 0 };
+        this.state = { date: date, amount: 0, category_id: 0, type_id: 1 };
         this.amountChanged = this.amountChanged.bind(this);
     }
 
     render() {
-        const { navigate } = this.props.navigation;
+        const { navigation } = this.props.navigation;
+        let color = this.state.type_id === 1 ? 'red' : 'green';
         return (
             <View style={styles.container}>
                 <View style={styles.group}>
                     <View style={styles.row}>
                         <View style={styles.left} />
-                        <TextInput autoFocus={true} keyboardType='numeric' style={[{ fontSize: 36, flex: 6 }]} onChangeText={this.amountChanged} value={this.state.amount > 0 ? formatter.formatNumberIntoCurrency(this.state.amount) : ''} />
+                        <TextInput autoFocus={true} keyboardType='numeric' style={[{ fontSize: 32, flex: 6, color: color }]} onChangeText={this.amountChanged} value={this.state.amount >= 0 ? formatter.formatNumberIntoCurrency(this.state.amount) : ''} />
                         <Text style={{flex: 1, fontSize: 36, color: 'black'}}>đ</Text>
                     </View>
-                    <View style={styles.row}>
+                    <TouchableOpacity style={styles.row} onPress={() => {
+                        this.props.navigation.navigate('Category', {category_id: this.state.category_id, getReturnedData: this.getReturnedData.bind(this)});
+                    }}>
                         <View style={styles.left}>
-                            <Image style={{width: 40, height: 40}} source={require('./../../images/an_uong.png')}/>
+                            <Image style={{width: 30, height: 30}} source={categories[this.state.category_id].image}/>
                         </View>
-                        <Text style={[styles.right, {fontSize: 32, color: 'black', padding: 4}]}>Ăn uống</Text>
-                    </View>
+                        <Text style={[styles.right, {fontSize: 28, color: 'black'}]}>{categories[this.state.category_id].title}</Text>
+                    </TouchableOpacity>
                     <View style={styles.row}>
                         <View style={styles.left}>
                             <Icon name='note' size={22} color='black' />
