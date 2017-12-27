@@ -22,6 +22,7 @@ import CurrentMoney from "./src/components/CurrentMoney"
 import HeaderIconButton from "./src/components/HeaderIconButton"
 import MonthContainer from "./src/screens/MonthContainer"
 import NotificationScreen from "./src/screens/NotificationScreen"
+import CategoriesScreen from "./src/screens/CategoriesScreen"
 
 const PlansContent = StackNavigator({
     PlansList: {
@@ -30,10 +31,12 @@ const PlansContent = StackNavigator({
 });
 
 const ScreenStack = StackNavigator(
-    {        
+    {
         Home: {
             screen: HomeScreen,
         },
+      
+
         Plans: {
             screen: PlansContent,
             navigationOptions : {
@@ -62,6 +65,9 @@ const ScreenStack = StackNavigator(
                 },
             },
         },
+        Category: {
+            screen: CategoriesScreen,
+        },  
     },
     {
         initialRouteName: "Home",

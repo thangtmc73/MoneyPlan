@@ -55,7 +55,7 @@ class EditDayDetailScreen extends React.Component {
                     </View>
                     <View style={styles.row}>
                         <View style={styles.left}>
-                            <Image style={{ width: 40, height: 40 }} source={require('./../../images/an_uong.png')} />
+                            <Image style={{ width: 40, height: 40 }} source={require('./../../images/outcome_an_uong.png')} />
                         </View>
                         <Text style={[styles.right, { fontSize: 32, color: 'black', padding: 4 }]}>Ăn uống</Text>
                     </View>

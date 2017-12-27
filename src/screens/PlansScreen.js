@@ -83,8 +83,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#2db84c',
         position: 'absolute',
         justifyContent: 'center',
-        alignSelf: 'center',
-        alignItems: 'center',        
+        alignItems: 'center',
         bottom: 30,
     },
     floatingActionButton: {

@@ -26,7 +26,7 @@ class HeaderIconButton extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        padding: 10,
+        padding: 20,
     },
 });
 

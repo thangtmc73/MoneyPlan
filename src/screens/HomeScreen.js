@@ -38,7 +38,7 @@ class HomeScreen extends React.Component {
             },
             headerTitleStyle: {alignSelf: 'center'},
             headerTintColor:'white',
-            headerLeft: (<HeaderIconButton icon='paper-plane-o' size={22} tintColor='white' onPress={() => {
+            headerLeft: (<HeaderIconButton icon='calendar-check-o' size={22} tintColor='white' onPress={() => {
                 navigation.navigate("Plans");
             }}/>),
             headerRight: <HeaderIconButton icon='bell-o' size={22} tintColor='white' onPress={() => {
@@ -129,7 +129,7 @@ class HomeScreen extends React.Component {
                     }
                 }} screenProps={{time: (this.state.year * 100 + this.state.month).toString()}}/>
                 <TouchableOpacity style={styles.floatingActionButton} onPress={()=>{
-                    this.props.navigation.navigate('AddDayDetail');
+                    this.props.navigation.navigate('AddDayDetail', { navigation: this.props.navigation});
                 }}>
                         <Icon name='plus' size={22} color='white'/>                                                                                     
                 </TouchableOpacity>

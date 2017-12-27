@@ -30,22 +30,24 @@ class MonthContainer extends React.Component {
         dataTest = [{title: 'Di chuyển', subtitle: 'Xe buýt', value:-2000},
             {title: 'Lương', subtitle: 'Công ty', value: 100000},
             {title: 'Ăn cơm', subtitle: 'Trưa', value: -15000}];
-        if (time != null)
+        //dataTest = null;
+        if (dataTest != null)    
         {
             return (
                 <ScrollView style={styles.list}>
                     <MonthStatus month={10} income={15000} outcome={30000}/>
                         <DayStatus data={dataTest} navigate={this.props}/>
                         <DayStatus data={dataTest} navigate={this.props}/>
-
                 </ScrollView>    
             );
         }
-        else
-        {
+        else{
             return (
-                <View/>
-            )
+                <View style={styles.container}>
+                    <Text style={styles.noDataTitle}>Không có dữ liệu</Text>
+                    <Text style={styles.noDataSubTitle}>Chạm <Text style={{fontSize: 22}}>+</Text> để thêm</Text>
+                </View>
+            );
         }
     }
 }
@@ -54,6 +56,9 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         height: 'auto',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     list: {
         padding: 0,
@@ -83,7 +88,17 @@ const styles = StyleSheet.create({
         alignItems: 'center',        
         bottom: 30,
     },
-
+    noDataTitle: {
+        fontSize: 26,
+        fontFamily: 'Roboto-Light',
+        color: 'black',
+    },
+    noDataSubTitle: {
+        marginTop: 5,
+        fontFamily: 'Roboto-Light',
+        fontSize: 16,
+        color: 'gray',
+    }
 });
 
 export default MonthContainer;
