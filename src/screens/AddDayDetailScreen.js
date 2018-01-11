@@ -10,6 +10,7 @@ import {
     Button,
     TextInput,
     Picker,
+    Dimensions
 } from 'react-native';
 
 import CurrentMoney from './../components/CurrentMoney'
@@ -22,6 +23,10 @@ import DatePicker from 'react-native-datepicker'
 import Moment from 'moment';
 import formatter from './../utils/formatter'
 import categories from './../model/Categories'
+import DBService from './../service/DBService'
+import UsedMoneyDetailModel from './../model/UsedMoneyDetailModel'
+
+let windowWidth = Dimensions.get('window').width;
 
 class AddDayDetailScreen extends React.Component {
     static navigationOptions = {
@@ -46,20 +51,20 @@ class AddDayDetailScreen extends React.Component {
         super(props);
         let today = new Date();
         let date = today.getDate().toString() + "/" + (today.getMonth() + 1).toString() + "/" + today.getFullYear().toString();
-        this.state = { date: date, amount: 0, category_id: 0, type_id: 1 };
+        this.state = { date: date, amount: 0, category_id: 0, type_id: 1, subtitle: '' };
         this.amountChanged = this.amountChanged.bind(this);
     }
 
     render() {
         const { navigation } = this.props.navigation;
-        let color = this.state.type_id === 1 ? 'red' : 'green';
+        let color = this.state.type_id === 1 ? 'red' : '#039be5';
         return (
             <View style={styles.container}>
                 <View style={styles.group}>
                     <View style={styles.row}>
                         <View style={styles.left} />
-                        <TextInput autoFocus={true} keyboardType='numeric' style={[{ fontSize: 32, flex: 6, color: color }]} onChangeText={this.amountChanged} value={this.state.amount >= 0 ? formatter.formatNumberIntoCurrency(this.state.amount) : ''} />
-                        <Text style={{flex: 1, fontSize: 36, color: 'black'}}>đ</Text>
+                        <TextInput autoFocus={true} keyboardType='numeric' style={[{ fontSize: 32, flex: 6, color: color, fontFamily:'Roboto-Medium'}]} onChangeText={this.amountChanged} value={this.state.amount >= 0 ? formatter.formatNumberIntoCurrency(this.state.amount) : ''} />
+                        <Text style={{flex: 1, fontSize: 36, color: color, fontFamily:'Roboto-Medium'}}>đ</Text>
                     </View>
                     <TouchableOpacity style={styles.row} onPress={() => {
                         this.props.navigation.navigate('Category', {category_id: this.state.category_id, getReturnedData: this.getReturnedData.bind(this)});
@@ -67,13 +72,13 @@ class AddDayDetailScreen extends React.Component {
                         <View style={styles.left}>
                             <Image style={{width: 30, height: 30}} source={categories[this.state.category_id].image}/>
                         </View>
-                        <Text style={[styles.right, {fontSize: 28, color: 'black'}]}>{categories[this.state.category_id].title}</Text>
+                        <Text style={[styles.right, {fontSize: 28, color: 'black', fontFamily:'Roboto-Light'}]}>{categories[this.state.category_id].title}</Text>
                     </TouchableOpacity>
                     <View style={styles.row}>
                         <View style={styles.left}>
-                            <Icon name='note' size={22} color='black' />
+                            <Icon name='note-outline' size={22} color='black' />
                         </View>
-                        <TextInput style={[styles.right, { fontSize: 20 }]} placeholder='Ghi chú' />
+                        <TextInput style={[styles.right, { fontSize: 20, fontFamily:'Roboto-Light'}]} placeholder='Ghi chú' value={this.state.subtitle} onChangeText={(subtitle) => this.setState({subtitle})} />
                     </View>
                     <View style={styles.row}>
                         <View style={styles.left}>
@@ -93,6 +98,9 @@ class AddDayDetailScreen extends React.Component {
                             customStyles={{
                                 dateText:{
                                     fontSize: 24,
+                                    fontFamily:'Roboto-Light',
+                                    alignSelf: 'flex-start',
+                                    marginLeft: 5,
                                 }
                             }}
                             onDateChange={(date) => { this.setState({ date: date }) }}
@@ -100,7 +108,13 @@ class AddDayDetailScreen extends React.Component {
                     </View>
                 </View>
                 <TouchableOpacity style={styles.floatingActionButton} onPress={() => {
-                    navigate('DayDetail')
+                    let value = isNaN(this.state.amount) ? 0 : this.state.amount;
+                    value = (categories[this.state.category_id].type_id === 1 ? -value : value);
+                    
+                    let parts = this.state.date.split('/');
+                    DBService.addNewUsedMoneyDetail(new UsedMoneyDetailModel(categories[this.state.category_id].title, this.state.subtitle, this.state.category_id, new Date(parts[2], parts[1] - 1, parts[0]), value));
+                    this.props.navigation.state.params.updateUI();
+                    this.props.navigation.goBack();
                 }}>
                     <Icon name='content-save' size={22} color='white' />
                 </TouchableOpacity>
@@ -115,11 +129,15 @@ const styles = StyleSheet.create({
     },
     group: {
         margin: 4,
+        justifyContent: 'space-between',
         backgroundColor: 'white',
-        height: 'auto',
+        width: windowWidth,
+        height: windowWidth / 8 * 5,
         borderWidth: 1,
         borderColor: 'white',
         borderRadius: 5,
+        paddingTop: 5,
+        paddingBottom: 5
     },
     row: {
         marginLeft: 4,

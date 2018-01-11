@@ -17,36 +17,86 @@ import PlanInfo from './../components/PlanInfo'
 import HeaderIconButton from './../components/HeaderIconButton'
 import CurrentMoney from './../components/CurrentMoney'
 import formatter from './../utils/formatter'
+import DBService from './../service/DBService'
 
 class PlansScreens extends React.Component {
-    static navigationOptions = {
+    static navigationOptions = ({navigation}) => ({
         headerTitle: (
-            <CurrentMoney name={formatter.formatNumberIntoCurrency(1555000)} color='black'/>
-        ),
+            <CurrentMoney value={navigation.state.params && navigation.state.params.money
+                ? navigation.state.params.money : 0} color='black'/>),
         headerStyle:{
             backgroundColor:'white',
         },
         headerTitleStyle: {alignSelf: 'center'},
-        headerTintColor:'white',
-    };
+        headerTintColor:'black',
+    });
     constructor(props) {
         super(props);
-        this.states = {}
+        this.state = {data: DBService.getAllPlans(), reload: false}
     }
+
+    componentDidMount() {
+        const {setParams} = this.props.navigation;
+        setParams({
+            money: DBService.getMoney()
+        });
+    }
+
+    componentWillUpdate() {
+        const {setParams} = this.props.navigation;
+        const {params} = this.props.navigation.state;
+        let money = DBService.getMoney();
+        if (params && params.money)
+        {
+            if (params.money !== money)
+            {
+                setParams({
+                    money: DBService.getMoney()
+                });
+            }
+        }
+    }
+
+    updateUI()
+    {
+        this.setState({reload: true, data: DBService.getAllPlans()});
+    }
+
+    componentDidUpdate()
+    {
+        if (this.state.reload === true)
+        {
+            this.setState({reload: false});
+            this.props.navigation.state.params.updateUI();
+        }
+    }
+
     render() {
+        let today = new Date();
         return (
-            <View style={styles.container}>
-                <ScrollView>
-                    <PlanInfo title='Du lịch' subtitle='Nha Trang' passedValue='10000000000' target='120000' date='2017-11-14'/>
-                    <PlanInfo title='Huỷ diệt Trái đất' subtitle='thích thì làm' passedValue='100000' target='150000' date='2017-11-17'/>
-                    <PlanInfo title='Haiza' subtitle='haiza' passedValue='250000' target='200000' date='2017-11-14'/>
-                    <PlanInfo title='Huỷ diệt Sao hoả' subtitle='thích thì làm' passedValue='100000' target='150000' date='2017-11-20'/>
-                </ScrollView>
-                <TouchableOpacity style={styles.floatingActionButton}>
-                        <Icon name='plus' size={22} color='white'/>                                                                                     
-                </TouchableOpacity>
+        <View style={styles.container}>
+            <View style={styles.todayView}>
+                <Text style={styles.todayText}>Hôm nay là ngày {today.getDate()}/{today.getMonth() + 1}/{today.getFullYear()}</Text>
             </View>
-        );
+            {this.state.data.length > 0 ? (
+            <ScrollView>
+            { 
+                this.state.data.map((item) =>
+                    <PlanInfo id={item.id} key={item.id} subtitle={item.subtitle} passedValue={this.props.navigation.state.params.money} target={item.target} date={item.date} updateUI={this.updateUI.bind(this)} today={today}/>)
+            }
+            <View style={{height: 90}}/>
+            </ScrollView>) : (
+            <View style={{justifyContent: 'center', alignItems: 'center'}}>
+                <Text style={styles.noDataTitle}>Không có dữ liệu</Text>
+                <Text style={styles.noDataSubTitle}>Chạm <Text style={{fontSize: 22}}>+</Text> để thêm</Text>
+            </View>)}
+
+            <TouchableOpacity style={styles.floatingActionButton} onPress={() => {
+                this.props.navigation.navigate('AddPlanDetail', { navigation: this.props.navigation, updateUI: this.updateUI.bind(this)});
+            }}>
+                <Icon name='plus' size={22} color='white'/>                                                                                     
+            </TouchableOpacity>
+        </View>);
     }
 }
 
@@ -58,6 +108,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         height: 'auto',
+        justifyContent: 'center',
     },
     list: {
         padding: 0,
@@ -85,18 +136,28 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         bottom: 30,
+        right: 90,
     },
-    floatingActionButton: {
-        width: 60,
-        height: 60,
-        borderRadius: 30,
-        backgroundColor: '#2db84c',
-        position: 'absolute',
-        justifyContent: 'center',
-        alignSelf: 'center',
-        alignItems: 'center',        
-        bottom: 20,
-        right: 20,
+    noDataTitle: {
+        fontSize: 26,
+        fontFamily: 'Roboto-Light',
+        color: 'black',
+    },
+    noDataSubTitle: {
+        marginTop: 5,
+        fontFamily: 'Roboto-Light',
+        fontSize: 16,
+        color: 'gray',
+    },
+    todayView: {
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+    },
+    todayText: {
+        fontSize: 18,
+        fontFamily: 'Roboto-Regular',
+        color: 'black',
+        margin: 4,
     },
 });
 

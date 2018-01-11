@@ -40,11 +40,11 @@ const styles = StyleSheet.create({
         alignSelf: 'center',        
     },
     text:{
-        fontFamily: "Roboto-Regular",
         textAlign:'center',
         alignSelf: 'center',
         marginLeft:5,
-        fontSize: 22,
+        fontSize: 20,
+        fontFamily: 'Roboto-Medium'
     },
     white: {
         color:'white'

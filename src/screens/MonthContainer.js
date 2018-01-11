@@ -18,26 +18,57 @@ import CurrentMoney from './../components/CurrentMoney'
 import MonthStatus from './../components/MonthStatus'
 import DayStatus from './../components/DayStatus'
 import HeaderIconButton from './../components/HeaderIconButton'
+import DBService from './../service/DBService'
 
 class MonthContainer extends React.Component {
     constructor(props) {
         super(props);
-        this.states = {}
+        let year = Number(this.props.time.substr(0, 4));
+        let month = Number(this.props.time.substr(4, 2));
+        this.state = {data : DBService.getAllUsedMoneyDetailSpecifiedMonth(month - 1, year)};
     }
 
     render() {
-        const time = this.props.screenProps.time;
-        dataTest = [{title: 'Di chuyển', subtitle: 'Xe buýt', value:-2000},
-            {title: 'Lương', subtitle: 'Công ty', value: 100000},
-            {title: 'Ăn cơm', subtitle: 'Trưa', value: -15000}];
-        //dataTest = null;
-        if (dataTest != null)    
+        const navigation = this.props.navigation;
+        const time = this.props.time;
+        var groups = {};
+        let total_income = 0;
+        let total_outcome = 0;
+        const modifiedData = [];
+        let itemArr = [];
+        let temptDate = '';
+        this.state.data.map((item) => {
+            if (item.value >= 0) {
+                total_income += item.value;
+            }
+            else {
+                total_outcome -= item.value;
+            }
+            if (item.date.toString() !== temptDate)
+            {
+                temptDate = item.date.toString();
+                if (itemArr.length > 0)
+                {
+                    modifiedData.push(itemArr.slice(0));
+                }
+                while (itemArr.length) { itemArr.pop()};
+                itemArr.push(item);
+            }
+            else {
+                itemArr.push(item);
+            }
+        });
+        modifiedData.push(itemArr);
+        let lengthItem = modifiedData.length;
+        if (this.state.data.length > 0)    
         {
             return (
                 <ScrollView style={styles.list}>
-                    <MonthStatus month={10} income={15000} outcome={30000}/>
-                        <DayStatus data={dataTest} navigate={this.props}/>
-                        <DayStatus data={dataTest} navigate={this.props}/>
+                    <MonthStatus month={Number(this.props.time.substr(4, 2))} year={Number(this.props.time.substr(0, 4))} income={total_income} outcome={total_outcome} navigation={navigation}/>
+                    {                         
+                        modifiedData.map((item, i) =>
+                    <DayStatus key={i} data={item} navigation={navigation} updateUI={this.props.updateUI} verticalLine={i + 1 === lengthItem ? false : true}/>)
+                    }
                 </ScrollView>    
             );
         }

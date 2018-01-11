@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 
 import {
-    Platform,
     StyleSheet,
     Text,
     View,
@@ -9,7 +8,8 @@ import {
     Image,
     Button,
     ScrollView,
-    FlatList
+    Dimensions,
+
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -19,7 +19,9 @@ import MonthStatus from './../components/MonthStatus'
 import DayStatus from './../components/DayStatus'
 import HeaderIconButton from './../components/HeaderIconButton'
 import MonthContainer from './MonthContainer'
-import {TabNavigator  } from 'react-navigation';
+import {TabNavigator  } from 'react-navigation'
+import DBService from './../service/DBService'
+import Platform from './../utils/Platform'
 
 const getCurrentRouteName = (navigationState) => {
     if (!navigationState) return null;
@@ -29,9 +31,14 @@ const getCurrentRouteName = (navigationState) => {
 };
 
 class HomeScreen extends React.Component {
+    static navigatorStyle = {
+        orientation: 'portrait'
+
+    };
     static navigationOptions = ({navigation}) => ({
             headerTitle: (
-                <CurrentMoney value={-1505500} color='white'/>
+                <CurrentMoney value={navigation.state.params && navigation.state.params.money
+                    ? navigation.state.params.money : 0} color='white'/>
             ),
             headerStyle:{
                 backgroundColor:'#2db84c',
@@ -39,11 +46,9 @@ class HomeScreen extends React.Component {
             headerTitleStyle: {alignSelf: 'center'},
             headerTintColor:'white',
             headerLeft: (<HeaderIconButton icon='calendar-check-o' size={22} tintColor='white' onPress={() => {
-                navigation.navigate("Plans");
+                navigation.navigate("Plans", {updateUI: navigation.state.params.updateCurrentUI});
             }}/>),
-            headerRight: <HeaderIconButton icon='bell-o' size={22} tintColor='white' onPress={() => {
-                navigation.navigate("Notifications");
-            }}/>,
+            headerRight: <View/>,
         });
     
     constructor(props) {
@@ -62,12 +67,63 @@ class HomeScreen extends React.Component {
             month: mm,
             year: yyyy,
             routes: this.generateArrayMonths(mm, yyyy),
+            reload: true,
         };
+    }
+
+    componentDidMount() {
+        const {setParams} = this.props.navigation;
+        setParams({
+            money: DBService.getMoney(),
+            updateCurrentUI: this.updateCurrentUI.bind(this)
+        });
+    }
+
+    componentWillUpdate() {
+        const {setParams} = this.props.navigation;
+        const {params} = this.props.navigation.state;
+        let money = DBService.getMoney();
+        if (params && params.money)
+        {
+            if (params.money !== money)
+            {
+                setParams({
+                    money: DBService.getMoney(),
+                });
+            }
+        }
     }
 
     generateArrayMonths(month, year)
     {
         return [this.formatRightMonths(month - 2, year), this.formatRightMonths(month - 1, year), this.formatRightMonths(month, year), this.formatRightMonths(month + 1, year), this.formatRightMonths(month + 2, year)];
+    }
+
+    shouldComponentUpdate()
+    {
+        return true;
+    }
+
+    updateUI()
+    {
+        this.setState({reload: !this.state.reload});
+    }
+
+    updateCurrentUI()
+    {
+        this.setState({reload: !this.state.reload});
+        const {setParams} = this.props.navigation;
+        const {params} = this.props.navigation.state;
+        let money = DBService.getMoney();
+        if (params && params.money)
+        {
+            if (params.money !== money)
+            {
+                setParams({
+                    money: DBService.getMoney(),
+                });
+            }
+        }
     }
 
     componentDidUpdate()
@@ -111,10 +167,8 @@ class HomeScreen extends React.Component {
     }
 
     render() {
-        const {navigate} = this.props.navigation;
-        console.log({navigate});
         const Tabs = this.Tabs;
-
+        let {params} = this.props.navigation.state;
         return (
             <View style={{flex: 1}}>
                 <Tabs onNavigationStateChange={(prevState, currentState) => {
@@ -127,13 +181,12 @@ class HomeScreen extends React.Component {
                         const month = Number(currentName.substr(4, 2));
                         this.setState({rerendered: false, month: month, year: year, routes: this.generateArrayMonths(month, year)});
                     }
-                }} screenProps={{time: (this.state.year * 100 + this.state.month).toString()}}/>
+                }} screenProps={{time: (this.state.year * 100 + this.state.month).toString(), navigation : this.props.navigation}}/>
                 <TouchableOpacity style={styles.floatingActionButton} onPress={()=>{
-                    this.props.navigation.navigate('AddDayDetail', { navigation: this.props.navigation});
+                    this.props.navigation.navigate('AddDayDetail', { navigation: this.props.navigation, updateUI: this.updateUI.bind(this)});
                 }}>
                         <Icon name='plus' size={22} color='white'/>                                                                                     
                 </TouchableOpacity>
-                <Text>{this.state.rerendered ? "true" : "false"}</Text>
             </View>
         );
     }
@@ -142,13 +195,17 @@ class HomeScreen extends React.Component {
 
     formatRightMonths(month, year)
     {
-        if (month <= 0)
+        if (month < 0)
         {
             return {m: 12 + month - 1, y: year - 1}
         }
         else if (month > 12)
         {
             return {m: month - 12, y: year + 1}
+        }
+        else if (month === 0)
+        {
+            return {m: 12, y: year - 1}
         }
         return {m: month, y: year};
     }
@@ -163,9 +220,10 @@ class HomeScreen extends React.Component {
 
     tab(time) {
         const k = 10;
-        const label = time.m+ "/" + time.y;
+        const label = (time.m < 9 ? '0' + time.m+ "/" + time.y : time.m+ "/" + time.y);
+        const time_id = (time.y * 100 + time.m).toString();
         return {
-            screen: MonthContainer,
+            screen: props => <MonthContainer time={time_id} navigation={this.props.navigation} updateUI={this.updateUI.bind(this)}/>,
             navigationOptions: {
                 title: label,
             }
@@ -204,7 +262,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignSelf: 'center',
         alignItems: 'center',        
-        bottom: 30,
+        bottom: 20,
     },
 
 });

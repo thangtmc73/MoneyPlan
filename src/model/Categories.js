@@ -108,6 +108,11 @@ const categories = [{
         type_id: 2,
         title: 'Khoản thu khác',
         image: require('./../../images/income_khoan_thu_khac.png')
+    }, {
+        id: 23,
+        type_id: 1,
+        title: 'Kế hoạch',
+        image: require('./../../images/outcome_ke_hoach.png')
     },
 ];
 

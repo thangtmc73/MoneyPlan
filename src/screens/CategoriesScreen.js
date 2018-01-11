@@ -47,7 +47,7 @@ const Navigator = ( category_id, navigation ) => {
 
 class CategoriesScreen extends React.Component {
     static navigationOptions = ({
-            title: "Chọn nhóm",
+            title: "Chọn Nhóm",
         });
     
     constructor(props) {

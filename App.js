@@ -23,6 +23,8 @@ import HeaderIconButton from "./src/components/HeaderIconButton"
 import MonthContainer from "./src/screens/MonthContainer"
 import NotificationScreen from "./src/screens/NotificationScreen"
 import CategoriesScreen from "./src/screens/CategoriesScreen"
+import AddPlanDetailScreen from "./src/screens/AddPlanDetailScreen"
+import MonthGeneralScreen from "./src/screens/MonthGeneralScreen"
 
 const PlansContent = StackNavigator({
     PlansList: {
@@ -35,13 +37,15 @@ const ScreenStack = StackNavigator(
         Home: {
             screen: HomeScreen,
         },
-      
+        MonthGeneral: {
+            screen: MonthGeneralScreen,
+        },
 
         Plans: {
             screen: PlansContent,
             navigationOptions : {
                 headerTitle: (
-                    <Text style={{fontSize: 24, color: 'white', alignSelf: 'center'}}>Kế hoạch</Text>
+                    <Text style={{fontSize: 24, color: 'white', alignSelf: 'center', fontFamily: 'Roboto-Regular'}}>Kế Hoạch</Text>
                 ),
                 headerStyle: {
                     backgroundColor: '#2db84c',
@@ -51,6 +55,7 @@ const ScreenStack = StackNavigator(
         Notifications : {
             screen: NotificationScreen,
         },
+        AddPlanDetail : {screen: AddPlanDetailScreen },
         DayDetail: { screen: DayDetailScreen },                                
         AddDayDetail: { screen: AddDayDetailScreen },
         EditDayDetail : { screen: EditDayDetailScreen },          

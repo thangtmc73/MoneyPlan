@@ -29,10 +29,9 @@ class CategoryContainer extends Component {
                         <Image style={styles.image} source={categories[this.props.id - 1].image}/>
                         <Text style={styles.text}>{categories[this.props.id - 1].title}</Text>
                     </View>
-        {this.props.selected === true ? <View style={{flex: 1}}><Icon name='check' size={22} color='#2db84c'/></View> : <View style={{flex: 1}}/>}                    
+                {this.props.selected === true ? <View style={{flex: 1}}><Icon name='check' size={22} color='#2db84c'/></View> : <View style={{flex: 1}}/>}                    
                 </View>
                 <View style={styles.mainSeparator}/>
-
             </TouchableOpacity>
         );
     }
@@ -63,7 +62,7 @@ const styles = StyleSheet.create({
         width: 30,
     },
     text:{
-        fontFamily: "Roboto-Regular",
+        fontFamily: "Roboto-Light",
         marginLeft:20,
         fontSize: 22,
         color: 'black',

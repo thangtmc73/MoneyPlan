@@ -12,18 +12,21 @@ import {
 } from 'react-native';
 
 import formatter from './../utils/formatter'
+import categories from './../model/Categories'
 
 class DayDetail extends Component {
     render() {
-        let colorStyle = this.props.value > 0 ? styles.blue : styles.red;
+        let colorStyle = categories[this.props.category_id].type_id === 2 ? styles.blue : styles.red;
         let {params} = this.props;
         const navigation = this.props.onPress;
         return (
             
-            <TouchableOpacity style={styles.container}>
+            <TouchableOpacity style={styles.container} onPress={() => {
+                this.props.navigation.navigate('DayDetail', {id: this.props.id, updateUI: this.props.updateUI});
+            }}>
                 <View style={styles.headerRow}>
                     <View style={styles.detailRowContainer}>
-                        <Image style={styles.icon} source={require('./../../images/red.png')}/>
+                        <Image style={styles.icon} source={categories[this.props.category_id].image}/>
                         <View style={styles.titleContainer}>
                             <Text style={styles.title}>{this.props.title}</Text>
                             <Text style={styles.subtitle}>{this.props.subtitle}</Text>
@@ -56,6 +59,7 @@ const styles = StyleSheet.create({
     },
     titleContainer: {
         marginLeft:10,
+        height: 40,
         flexDirection: 'column',
         justifyContent:'center',
     },
@@ -70,7 +74,7 @@ const styles = StyleSheet.create({
         borderRadius:15,
     },
     title: {
-        fontSize: 20,
+        fontSize: 16,
         color:'black'
     },
     subtitle: {
@@ -81,12 +85,13 @@ const styles = StyleSheet.create({
         padding: 10,
         fontSize: 16,
         color: 'black',
+        fontFamily: 'Roboto-Medium'
     },
     red: {
         color: 'red'
     },
     blue: {
-        color: '#20b2aa'
+        color: '#039be5'
     }
 });
 

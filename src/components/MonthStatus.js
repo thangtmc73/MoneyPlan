@@ -9,32 +9,45 @@ import {
     Image,
     TouchableOpacity,
     View,
+    Dimensions,
 } from 'react-native';
-
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import formatter from './../utils/formatter'
+let windowWidth = Dimensions.get('window').width;
 
 class MonthStatus extends Component {
+    constructor(){
+        super();
+    }
     render() {
         return (
-            <TouchableOpacity style={styles.container}>
+            <TouchableOpacity style={styles.container} onPress={() => {
+                this.props.navigation.navigate('MonthGeneral', {month: this.props.month, year: this.props.year});
+            }}>
                 <View style={styles.headerRow}>
                     <View style={styles.headerTitle}>
-                        <Text style={styles.title}>Tổng quan</Text>
-                        <Text style={styles.subTitle}>Chạm để xem báo cáo đầy đủ</Text>
+                        <View style={{flex: 2, justifyContent: 'center'}}>
+                            <Text style={styles.title}>Tổng quan</Text>
+                        </View>
+                        <View style={{flex: 1, justifyContent: 'center'}}>
+                            <Text style={styles.subTitle}>Chạm để xem báo cáo đầy đủ</Text>
+                        </View>
                     </View>
-                    <Text style={styles.headerArrow}>></Text>
+                    <View style={styles.headerArrow}><Icon name='chevron-right' size={28} color='gray' /></View>
                 </View>
-                <View style={styles.mainSeparator}/>
-                <View style={styles.detailRowContainer}>
-                    <Text style={styles.detailRowHeader}>Tiền vào</Text>
-                    <Text style={[styles.detailRowValue, {color:'#20b2aa'}]}>{formatter.formatNumberIntoCurrency(this.props.income)} đ</Text>
+                <View style={{flex:5}}>
+                    <View style={styles.mainSeparator}/>
+                    <View style={styles.detailRowContainer}>
+                        <Text style={styles.detailRowHeader}>Tiền vào</Text>
+                        <Text style={[styles.detailRowValue, {color:'#039be5'}]}>{formatter.formatNumberIntoCurrency(this.props.income)} đ</Text>
+                    </View>
+                    <View style={styles.detailRowContainer}>
+                        <Text style={styles.detailRowHeader}>Tiền ra</Text>
+                        <Text style={[styles.detailRowValue, {color:'red'}]}>{formatter.formatNumberIntoCurrency(this.props.outcome)} đ</Text>
+                    </View>
+                    <View style={styles.calSeparator}/>
+                    <Text style={styles.result}>{formatter.formatNumberIntoCurrency(this.props.income - this.props.outcome)} đ</Text>
                 </View>
-                <View style={styles.detailRowContainer}>
-                    <Text style={styles.detailRowHeader}>Tiền ra</Text>
-                    <Text style={[styles.detailRowValue, {color:'red'}]}>{formatter.formatNumberIntoCurrency(this.props.outcome)} đ</Text>
-                </View>
-                <View style={styles.calSeparator}/>
-                <Text style={styles.result}>{formatter.formatNumberIntoCurrency(this.props.income - this.props.outcome)} đ</Text>
             </TouchableOpacity>
         );
     }
@@ -42,48 +55,56 @@ class MonthStatus extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        margin:4,
         borderWidth:1,
-        borderRadius:5,
-        height:'auto',
+        flex:1,
+        width: windowWidth,
+        height: windowWidth * 8 / 13,
+        margin: 0,
         borderColor:'white',
         backgroundColor:'white',
         flexDirection:'column',
+        marginBottom: 10,
+        justifyContent: 'flex-start'
     },
     mainSeparator: {
         backgroundColor:'lightgray',
         height:1,
         marginLeft:10,
         marginRight:10,
-        marginTop:10,
-        marginBottom:10,
     },
     headerRow: {
-        height:70,
+        flex: 3,
+        height: 'auto',
         flexDirection: 'row',
-        flex: 1,
         alignItems:'center'
     },
     headerTitle: {
         flexDirection: 'column',
-        flex: 13,
-        padding:10
+        flex: 12,
     },
     headerArrow: {
         flex: 1,
-        fontSize: 32,
         paddingRight:10,
-        color:'black',
     },
     title: {
-        fontSize: 30,
+        flex: 2,
+        fontSize: 28,
         color: 'black',
+        fontFamily: 'Roboto-Regular',
+        textAlignVertical: 'center',
+        marginLeft: 10,
     },
     subTitle: {
-        fontSize: 11,
+        flex: 1,
+        fontSize: 16,
         color: 'gray',
+        fontFamily: 'Roboto-Regular',
+        textAlignVertical: 'center',
+        marginLeft: 10,
     },
     detailRowContainer: {
+        flex: 4,
+        marginTop: 10,
         paddingLeft:10,
         paddingRight:10,
         flexDirection:'row',
@@ -91,27 +112,32 @@ const styles = StyleSheet.create({
     },
     detailRowHeader:{
         color:'black',
-        fontSize:16
+        fontSize:16,
+        fontFamily: 'Roboto-Regular'
     },
     detailRowValue:{
-        fontSize:16
+        fontSize:16,
+        fontFamily: 'Roboto-Medium'
     },
     calSeparator: {
         backgroundColor:'lightgray',
         alignSelf:'flex-end',
         height:1,
-        width:150,
+        width:windowWidth * 5 /13,
         marginLeft:10,
         marginRight:10,
         marginTop:10,
         marginBottom:10,
     },
     result:{
+        flex: 5,
         alignSelf:'flex-end',
         padding:10,
         paddingTop:0,
-        fontSize:20,
+        fontSize:16,
         color:'black',
+        fontFamily: 'Roboto-Medium',
+        textAlignVertical: 'center',
     }
 });
 

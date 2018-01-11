@@ -7,78 +7,56 @@ import {
     View,
     TouchableOpacity,
     Image,
-    Button,
     TextInput,
-    Picker,
-    Dimensions,
+    Dimensions
 } from 'react-native';
 
-import HeaderTextButton from './../components/HeaderTextButton'
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import DatePicker from 'react-native-datepicker'
 import Moment from 'moment';
 import formatter from './../utils/formatter'
 import DBService from './../service/DBService'
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import categories from './../model/Categories'
-import UsedMoneyDetailModel from './../model/UsedMoneyDetailModel'
+import PlanModel from './../model/PlanModel'
 
 let windowWidth = Dimensions.get('window').width;
 
-class EditDayDetailScreen extends React.Component {
+class AddPlanScreen extends React.Component {
     static navigationOptions = {
-        title: "Sửa Giao Dịch",
+        title: "Thêm Kế Hoạch",
         headerStyle: {
-            backgroundColor: '#f0f0f0',
+            backgroundColor: '#dcdcdc',
         },
         headerTintColor: 'black',
     };
 
     amountChanged(e) {
         let value = formatter.formatCurrencyIntoNumber(e);
-        this.setState({ amount: value });
-    }
-
-    getReturnedData(id)
-    {
-        this.setState({category_id: id, type_id: categories[id].type_id});
+        this.setState({amount: value});
     }
 
     constructor(props) {
         super(props);
-        let dayDetail = DBService.getUsedMoneyDetailWithId(this.props.navigation.state.params.id);
-        this.state = { 
-            subtitle: dayDetail.subtitle,
-            date: dayDetail.date.getDate() + '/' + (dayDetail.date.getMonth() + 1) + '/' + dayDetail.date.getFullYear(),
-            amount: dayDetail.value,
-            type_id: categories[dayDetail.category_id].type_id,
-            category_id: dayDetail.category_id};
+        let today = new Date();
+        let date = today.getDate().toString() + "/" + (today.getMonth() + 1).toString() + "/" + today.getFullYear().toString();
+        this.state = { date: date, amount: 0, subtitle: '' };
         this.amountChanged = this.amountChanged.bind(this);
     }
 
     render() {
-        const { navigate } = this.props.navigation;
-        let color = this.state.type_id === 1 ? 'red' : '#039be5';
+        const { navigation } = this.props.navigation;
         return (
             <View style={styles.container}>
                 <View style={styles.group}>
                     <View style={styles.row}>
                         <View style={styles.left} />
-                        <TextInput autoFocus={true} keyboardType='numeric' style={[{ fontSize: 32, flex: 6, color: color, fontFamily:'Roboto-Medium' }]} onChangeText={this.amountChanged} value={this.state.amount >= 0 ? formatter.formatNumberIntoCurrency(this.state.amount) : formatter.formatNumberIntoCurrency(-this.state.amount)} />
-                        <Text style={{flex: 1, fontSize: 36, color: 'black', fontFamily:'Roboto-Medium'}}>đ</Text>
+                        <TextInput autoFocus={true} keyboardType='numeric' style={[{ fontSize: 32, flex: 6, color: 'black', fontFamily: 'Roboto-Medium'}]} onChangeText={this.amountChanged} value={formatter.formatNumberIntoCurrency(this.state.amount)} />
+                        <Text style={{flex: 1, fontSize: 36, color: 'black', fontFamily: 'Roboto-Medium'}}>đ</Text>
                     </View>
-                    <TouchableOpacity style={styles.row} onPress={() => {
-                        this.props.navigation.navigate('Category', {category_id: this.state.category_id, getReturnedData: this.getReturnedData.bind(this)});
-                    }}>
-                        <View style={styles.left}>
-                            <Image style={{width: 30, height: 30}} source={categories[this.state.category_id].image}/>
-                        </View>
-                        <Text style={[styles.right, {fontSize: 28, color: 'black', fontFamily:'Roboto-Light'}]}>{categories[this.state.category_id].title}</Text>
-                    </TouchableOpacity>
                     <View style={styles.row}>
                         <View style={styles.left}>
                             <Icon name='note-outline' size={22} color='black' />
                         </View>
-                        <TextInput style={[styles.right, { fontSize: 20, fontFamily:'Roboto-Light' }]} placeholder='Ghi chú' value={this.state.subtitle} onChangeText={(subtitle) => this.setState({subtitle})} />
+                        <TextInput style={[styles.right, { fontSize: 20, fontFamily: 'Roboto-Light' }]} placeholder='Ghi chú' value={this.state.subtitle} onChangeText={(subtitle) => this.setState({subtitle})} />
                     </View>
                     <View style={styles.row}>
                         <View style={styles.left}>
@@ -96,7 +74,7 @@ class EditDayDetailScreen extends React.Component {
                             cancelBtnText="Huỷ"
                             showIcon={false}
                             customStyles={{
-                                dateText: {
+                                dateText:{
                                     fontSize: 24,
                                     fontFamily:'Roboto-Light',
                                     alignSelf: 'flex-start',
@@ -109,10 +87,9 @@ class EditDayDetailScreen extends React.Component {
                 </View>
                 <TouchableOpacity style={styles.floatingActionButton} onPress={() => {
                     let value = isNaN(this.state.amount) ? 0 : this.state.amount;
-                    value = (categories[this.state.category_id].type_id === 1 ? -value : value);                        
                     let parts = this.state.date.split('/');
-                    DBService.updateUsedMoneyDetailWithId(this.props.navigation.state.params.id, new UsedMoneyDetailModel(categories[this.state.category_id].title, this.state.subtitle.toString(), this.state.category_id, new Date(parts[2], parts[1] - 1, parts[0]), value));
-                    this.props.navigation.state.params.updateCurrentUI();
+                    DBService.addNewPlan(new PlanModel(this.state.subtitle, new Date(parts[2], parts[1] - 1, parts[0]), this.state.amount));
+                    this.props.navigation.state.params.updateUI();
                     this.props.navigation.goBack();
                 }}>
                     <Icon name='content-save' size={22} color='white' />
@@ -134,9 +111,6 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: 'white',
         borderRadius: 5,
-        justifyContent: 'space-between',
-        paddingTop: 5,
-        paddingBottom: 5
     },
     row: {
         marginLeft: 4,
@@ -170,5 +144,5 @@ const styles = StyleSheet.create({
     },
 });
 
-export default EditDayDetailScreen;
+export default AddPlanScreen;
 
