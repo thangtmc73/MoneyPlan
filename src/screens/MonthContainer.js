@@ -21,12 +21,12 @@ import HeaderIconButton from './../components/HeaderIconButton'
 import DBService from './../service/DBService'
 
 class MonthContainer extends React.Component {
-    constructor(props) {
-        super(props);
-        let year = Number(this.props.time.substr(0, 4));
-        let month = Number(this.props.time.substr(4, 2));
-        this.state = {data : DBService.getAllUsedMoneyDetailSpecifiedMonth(month - 1, year)};
-    }
+  constructor(props) {
+    super(props);
+    let year = Number(this.props.time.substr(0, 4));
+    let month = Number(this.props.time.substr(4, 2));
+    this.state = { data: [] }; //DBService.getAllUsedMoneyDetailSpecifiedMonth(month - 1, year)};
+  }
 
     render() {
         const navigation = this.props.navigation;
